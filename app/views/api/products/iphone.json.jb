@@ -1,0 +1,6 @@
+{
+    name: @iphone.name,
+    price: @iphone.price,
+    image_url: @iphone.image_url,
+    description: @iphone.description
+  }

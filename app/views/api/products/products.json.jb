@@ -1,5 +1,3 @@
-@products = Product.all
-
 @products.map do |product|
   {
     name: product.name,
