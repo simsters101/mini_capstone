@@ -1,7 +1,7 @@
 class Api::ProductsController < ApplicationController
-  def show_products
+  def index
     @products = Product.all
-    render 'products.json.jb'
+    render 'index.json.jb'
   end
 
   def iphone_deets
@@ -9,9 +9,9 @@ class Api::ProductsController < ApplicationController
     render 'iphone.json.jb'
   end
 
-  def show_any_product
-    product = params["id"]
-    @info = Product.find_by(id: product)
-    render 'show_a_product.json.jb'
+  def show
+    the_id = params["id"]
+    @info = Product.find_by(id: the_id)
+    render 'show.json.jb'
   end
 end
