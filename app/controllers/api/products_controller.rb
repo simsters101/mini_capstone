@@ -1,7 +1,16 @@
 class Api::ProductsController < ApplicationController
   def index
-    @products = Product.all
+    if params[:search]
+      @products = Product.where("name LIKE ?", "%#{params[:search]}%")
+    else
+      @products = Product.all
+    end
     render 'index.json.jb'
+  end
+
+  def show
+    @product = Product.find_by(id: params["id"])
+    render 'show.json.jb'
   end
 
   def create
@@ -16,11 +25,6 @@ class Api::ProductsController < ApplicationController
     else
       render 'errors.json.jb', status: :unprocessible_entity
     end
-  end
-
-  def show
-    @product = Product.find_by(id: params["id"])
-    render 'show.json.jb'
   end
 
   def update
