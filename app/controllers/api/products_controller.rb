@@ -2,6 +2,9 @@ class Api::ProductsController < ApplicationController
   def index
     if params[:search]
       @products = Product.where("name LIKE ?", "%#{params[:search]}%")
+    elsif params[:discount]
+      puts "I am in the discount compartment"
+      @products = Product.where("price < ?", "300")
     else
       @products = Product.all
     end
