@@ -5,6 +5,9 @@ class Api::ProductsController < ApplicationController
     elsif params[:discount] == "true"
       puts "I am in the discount compartment"
       @products = Product.where("price < ?", "300")
+    elsif params[:sort] == "price"
+      puts "I am in the sorting compartment"
+      @products = Product.order(:price)
     else
       @products = Product.all
     end
