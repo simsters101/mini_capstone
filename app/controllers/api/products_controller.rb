@@ -1,14 +1,19 @@
 class Api::ProductsController < ApplicationController
   def index
     if params[:search]
+      puts "I am in the search compartment"
       @products = Product.where("name LIKE ?", "%#{params[:search]}%")
     elsif params[:discount] == "true"
       puts "I am in the discount compartment"
       @products = Product.where("price < ?", "300")
+    elsif params[:sort] == "price" && params[:sort_order] == "desc"
+      puts "I am in the default sorting compartment which is ascending"
+      @products = Product.order('price DESC')
     elsif params[:sort] == "price"
-      puts "I am in the sorting compartment"
-      @products = Product.order(:price)
+      puts "I am in the descending sorting compartment"
+      @products = Product.order('price')
     else
+      puts "I am in the default all products compartment"
       @products = Product.all
     end
     render 'index.json.jb'
