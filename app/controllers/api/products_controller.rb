@@ -14,7 +14,7 @@ class Api::ProductsController < ApplicationController
       @products = Product.order('price')
     else
       puts "I am in the default all products compartment"
-      @products = Product.all
+      @products = Product.order('id')
     end
     render 'index.json.jb'
   end
