@@ -3,11 +3,12 @@
   name: product.name,
   price: product.price,
   description: product.description,
-  image_url: product.image_url,
+  images: product.images,
   is_discounted?: product.is_discounted?,
   in_stock?: product.in_stock?,
   tax: product.tax,
   full_price: product.full_price,
+  # supplier: product.supplier.name,
   formatted: {
     price: number_to_currency(product.price),
     tax: number_to_currency(product.tax),

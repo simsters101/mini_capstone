@@ -6,16 +6,26 @@ class Api::ProductsController < ApplicationController
     elsif params[:discount] == "true"
       puts "I am in the discount compartment"
       @products = Product.where("price < ?", "300")
-    elsif params[:sort] == "price" && params[:sort_order] == "desc"
-      puts "I am in the default sorting compartment which is ascending"
-      @products = Product.order('price DESC')
-    elsif params[:sort] == "price"
-      puts "I am in the descending sorting compartment"
-      @products = Product.order('price')
     else
-      puts "I am in the default all products compartment"
+      @products = Product.all
+    end
+
+    # @products = Product.all
+
+    if params[:sort] && params[:sort_order]
+      @products = @products.order(params[:sort] => params[:sort_order])
+    else
       @products = Product.order('id')
     end
+
+    # if params[:sort] == "price" && params[:sort_order] == "asc"
+    #   puts "I am in the default sorting compartment which is ascending"
+    #   @products = @products.order('price DESC')
+    # elsif params[:sort] == "price" && params[:sort_order] == "desc"
+    #   puts "I am in the descending sorting compartment"
+    #   @products = @products.order('price')
+    # end
+
     render 'index.json.jb'
   end
 
