@@ -1,6 +1,8 @@
 class Api::ProductsController < ApplicationController
   def index
-    if params[:search]
+    if params[:search] && params[:discount] == "true"
+      @products = Product.where("name LIKE ?", "%#{params[:search]}%").where("price < ?", "300")
+    elsif params[:search]
       puts "I am in the search compartment"
       @products = Product.where("name LIKE ?", "%#{params[:search]}%")
     elsif params[:discount] == "true"
@@ -10,21 +12,11 @@ class Api::ProductsController < ApplicationController
       @products = Product.all
     end
 
-    # @products = Product.all
-
     if params[:sort] && params[:sort_order]
       @products = @products.order(params[:sort] => params[:sort_order])
     else
-      @products = Product.order('id')
+      @products.order('id')
     end
-
-    # if params[:sort] == "price" && params[:sort_order] == "asc"
-    #   puts "I am in the default sorting compartment which is ascending"
-    #   @products = @products.order('price DESC')
-    # elsif params[:sort] == "price" && params[:sort_order] == "desc"
-    #   puts "I am in the descending sorting compartment"
-    #   @products = @products.order('price')
-    # end
 
     render 'index.json.jb'
   end
@@ -38,9 +30,9 @@ class Api::ProductsController < ApplicationController
     @product = Product.new(
       name: params[:name], 
       price: params[:price],
-      description: params[:description],
-      image_url: params[:image_url]
+      description: params[:description]
       )
+
     if @product.save
       render 'show.json.jb'
     else
@@ -53,7 +45,6 @@ class Api::ProductsController < ApplicationController
     @product.name = params[:name] || @product.name
     @product.price = params[:price] || @product.price
     @product.description = params[:description] || @product.description
-    @product.image_url = params[:image_url] || @product.image_url
     @product.save
     if @product.save
       render 'show.json.jb'
