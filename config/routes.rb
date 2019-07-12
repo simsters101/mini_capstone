@@ -13,6 +13,13 @@ Rails.application.routes.draw do
     get 'suppliers' => 'suppliers#index'
 
     post "/users" => "users#create"
+
+    post "/sessions" => "sessions#create"
+
+    post "/orders" => "orders#create"
+    get '/orders' => 'orders#index'
+    get '/orders/:id' => 'orders#show'
+
   end
 
   # EXAMPLE JSON ROUTE WITH API NAMESPACE

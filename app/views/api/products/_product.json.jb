@@ -8,7 +8,8 @@
   in_stock?: product.in_stock?,
   tax: product.tax,
   full_price: product.full_price,
-  # supplier: product.supplier.name,
+  supplier_id: product.supplier_id,
+  supplier: product.supplier,
   formatted: {
     price: number_to_currency(product.price),
     tax: number_to_currency(product.tax),

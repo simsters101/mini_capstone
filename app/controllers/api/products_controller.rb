@@ -23,6 +23,10 @@ class Api::ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params["id"])
+    puts "***********************************"
+    puts "Current User:"
+    p current_user
+    puts "***********************************"
     render 'show.json.jb'
   end
 
@@ -30,7 +34,8 @@ class Api::ProductsController < ApplicationController
     @product = Product.new(
       name: params[:name], 
       price: params[:price],
-      description: params[:description]
+      description: params[:description],
+      supplier_id: params[:supplier_id]
       )
 
     if @product.save
@@ -45,6 +50,7 @@ class Api::ProductsController < ApplicationController
     @product.name = params[:name] || @product.name
     @product.price = params[:price] || @product.price
     @product.description = params[:description] || @product.description
+    @product.supplier_id = params[:supplier_id] || @product.supplier_id
     @product.save
     if @product.save
       render 'show.json.jb'
