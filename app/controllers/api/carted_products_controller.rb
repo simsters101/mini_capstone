@@ -22,11 +22,23 @@ class Api::CartedProductsController < ApplicationController
     render 'index.json.jb'
   end
 
+  def show
+    @carted_product = CartedProduct.find_by(id: params[:id])
+    if current_user.id == @carted_product.user_id
+      render 'show.json.jb'
+    else
+      render json: {message: "You cannot see someone elses carted_product!"}, status: :unauthorized
+    end
+  end
+
   def destroy
-    if current_user == User.find_by(id: params[:carted_product])
-      carted_product = CartedProduct.find_by(id: params[:carted_product])
-      carted_product.status = "removed"
-      carted_product.save
+    @carted_product = CartedProduct.find_by(id: params[:id])
+    if current_user.id == @carted_product.user_id
+      @carted_product.status = "removed"
+      @carted_product.save
+      render 'show.json.jb'
+    else
+      render json: {message: "You cannot delete someone elses carted_product!"}, status: :unauthorized
     end
   end
 end
