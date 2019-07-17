@@ -15,7 +15,8 @@ class Api::CartedProductsController < ApplicationController
   end
 
   def index
-    @carted_products = CartedProduct.all
+    @carted_products = current_user.carted_products
+    @carted_products = @carted_products.where(status: "carted")
     render 'index.json.jb'
   end
 end
