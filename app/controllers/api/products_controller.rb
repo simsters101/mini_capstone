@@ -1,5 +1,14 @@
 class Api::ProductsController < ApplicationController
+  before_action :authenticate_user, only: [:create, :update, :destroy]
+  before_action :authenticate_admin, only: [:create, :update, :destroy]
+
   def index
+
+    if params[:category]
+      category = Category.find_by(name: params[:category])
+      @products = category.products
+    end
+
     if params[:search] && params[:discount] == "true"
       @products = Product.where("name LIKE ?", "%#{params[:search]}%").where("price < ?", "300")
     elsif params[:search]
@@ -12,10 +21,14 @@ class Api::ProductsController < ApplicationController
       @products = Product.all
     end
 
+    # if params[:category]
+    #   @products = @products.find_by_sql("SELECT * FROM products WHERE product.category.name = #{params[:category]}")
+    # end
+
     if params[:sort] && params[:sort_order]
       @products = @products.order(params[:sort] => params[:sort_order])
     else
-      @products.order('id')
+      @products = @products.order(:id)
     end
 
     render 'index.json.jb'
@@ -23,10 +36,6 @@ class Api::ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params["id"])
-    puts "***********************************"
-    puts "Current User:"
-    p current_user
-    puts "***********************************"
     render 'show.json.jb'
   end
 

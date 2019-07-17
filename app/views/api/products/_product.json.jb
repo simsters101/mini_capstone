@@ -10,6 +10,7 @@
   full_price: product.full_price,
   supplier_id: product.supplier_id,
   supplier: product.supplier,
+  categories: product.categories,
   formatted: {
     price: number_to_currency(product.price),
     tax: number_to_currency(product.tax),
