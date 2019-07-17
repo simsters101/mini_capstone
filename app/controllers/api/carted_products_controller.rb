@@ -1,4 +1,6 @@
 class Api::CartedProductsController < ApplicationController
+  before_action :authenticate_user
+
   def create
     @carted_product = CartedProduct.new(
       status: "carted",
@@ -18,5 +20,13 @@ class Api::CartedProductsController < ApplicationController
     @carted_products = current_user.carted_products
     @carted_products = @carted_products.where(status: "carted")
     render 'index.json.jb'
+  end
+
+  def destroy
+    if current_user == User.find_by(id: params[:carted_product])
+      carted_product = CartedProduct.find_by(id: params[:carted_product])
+      carted_product.status = "removed"
+      carted_product.save
+    end
   end
 end
