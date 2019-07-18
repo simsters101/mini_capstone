@@ -12,11 +12,11 @@ Rails.application.routes.draw do
 
     get 'suppliers' => 'suppliers#index'
 
-    post "/users" => "users#create"
+    post '/users' => 'users#create'
 
-    post "/sessions" => "sessions#create"
+    post '/sessions' => 'sessions#create'
 
-    post "/orders" => "orders#create"
+    post '/orders' => 'orders#create'
     get '/orders' => 'orders#index'
     get '/orders/:id' => 'orders#show'
 
@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     get 'carted_products/:id' => 'carted_products#show'
     delete 'carted_products/:id' => 'carted_products#destroy'
   end
+
+  get '/products' => 'products#index'
 
   # EXAMPLE JSON ROUTE WITH API NAMESPACE
   # namespace :api do

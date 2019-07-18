@@ -32,6 +32,7 @@ class Api::OrdersController < ApplicationController
   end
 
   def index
+    @orders = current_user.orders
     render 'index.json.jb'
   end
 
