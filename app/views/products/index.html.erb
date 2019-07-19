@@ -1,0 +1,7 @@
+<% @products.each do |product| %>
+Id: <%= product.id  %> <br>
+Name: <%= product.name %> <br>
+Price: <%= product.price %> <br>
+<a href="/products/<%= product.id %>">Click here for more details for this product</a>
+<hr>
+<% end %>

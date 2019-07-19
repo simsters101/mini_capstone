@@ -1,9 +1,11 @@
-<% @products.each do |product| %>
-Id: <%= product.id  %> <br>
-Name: <%= product.name %> <br>
-Price: <%= product.price  %> <br>
-Description: <%= product.description  %><br>
-Created at: <%= product.created_at  %><br>
-Updated at: <%= product.updated_at  %>
-<hr>
-<% end %>
+<a href="/products">To see all products click here</a><br>
+<a href="/products/<%=@product.id%>/edit">To edit this product click here</a><br>
+
+Id: <%= @product.id  %> <br>
+Name: <%= @product.name %> <br>
+Price: <%= @product.price  %> <br>
+Description: <%= @product.description  %><br>
+Created at: <%= @product.created_at  %><br>
+Updated at: <%= @product.updated_at  %>
+
+
