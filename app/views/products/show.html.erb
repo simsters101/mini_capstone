@@ -1,5 +1,6 @@
-<a href="/products">To see all products click here</a><br>
-<a href="/products/<%=@product.id%>/edit">To edit this product click here</a><br>
+<p><a href="/products">To see all products click here</a></p><br>
+<p><a href="/products/<%=@product.id%>/edit">To edit this product click here</a></p><br>
+<p><a href="/products/<%=@product.id%>" data-method="delete" rel="nofollow">To delete this product click here</a></p><br>
 
 Id: <%= @product.id  %> <br>
 Name: <%= @product.name %> <br>
